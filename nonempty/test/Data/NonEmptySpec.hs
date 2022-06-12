@@ -19,3 +19,7 @@ spec = do
     nonEmpty @[Int] [1, 2, 3] `shouldBe` Just (trustedNonEmpty [1, 2, 3])
   it "nonEmpty creation on empty list should be Nothing" $
     nonEmpty @[Int] [] `shouldBe` Nothing
+  it "prepend should use semigroup" $
+    singleton (Proxy @[Int]) 1 <| [2] `shouldBe` trustedNonEmpty [1, 2]
+  it "append should use semigroup" $
+    [1] |> singleton (Proxy @[Int]) 2 `shouldBe` trustedNonEmpty [1, 2]

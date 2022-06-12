@@ -25,6 +25,10 @@ module Data.NonEmpty
     NonEmptyFromContainer (..),
     nonEmpty,
     MkNonEmptyFromContainerFoldable (..),
+
+    -- * Operations
+    (<|),
+    (|>),
   )
 where
 
@@ -40,6 +44,18 @@ newtype NonEmpty a = NonEmpty
 
 instance Semigroup a => Semigroup (NonEmpty a) where
   NonEmpty x <> NonEmpty y = NonEmpty $ x <> y
+
+-- * Operations
+
+(<|) :: Semigroup a => NonEmpty a -> a -> NonEmpty a
+NonEmpty ne <| n = NonEmpty $ ne <> n
+
+infixr 6 <|
+
+(|>) :: Semigroup a => a -> NonEmpty a -> NonEmpty a
+n |> NonEmpty ne = NonEmpty $ n <> ne
+
+infixr 6 |>
 
 -- | Trusted value
 trustedNonEmpty :: a -> NonEmpty a

@@ -16,21 +16,19 @@
         jailbreakUnbreak = pkg:
           pkgs.haskell.lib.doJailbreak (pkg.overrideAttrs (_: { meta = { }; }));
       in
+      rec
       {
         packages.nonempty = # (ref:haskell-package-def)
           haskellPackages.callCabal2nix "nonempty" ./nonempty rec {
             # Dependency overrides go here
           };
+        packages.nonempty-quickcheck = # (ref:haskell-package-def)
+          haskellPackages.callCabal2nix "nonempty-quickcheck" ./nonempty-quickcheck rec {
+            # Dependency overrides go here
+            nonempty = packages.nonempty;
+          };
 
-        defaultPackage = pkgs.stdenv.mkDerivation {
-          name = "nonempty";
-          src = self;
-          phases = [ "installPhase" ];
-          installPhase = ''touch $out/done'';
-          buildInputs = [
-            self.packages.${system}.nonempty
-          ];
-        };
+        defaultPackage = self.packages.${system}.nonempty-quickcheck;
 
         devShell = pkgs.mkShell {
           buildInputs = with haskellPackages; [
