@@ -11,20 +11,26 @@
       let
         pkgs = nixpkgs.legacyPackages.${system};
 
-        haskellPackages = pkgs.haskell.packages.ghc922;
+        haskellPackages = pkgs.haskell.packages.ghc923;
 
         jailbreakUnbreak = pkg:
           pkgs.haskell.lib.doJailbreak (pkg.overrideAttrs (_: { meta = { }; }));
-
-        packageName = "nonempty";
       in
       {
-        packages.${packageName} = # (ref:haskell-package-def)
-          haskellPackages.callCabal2nix packageName self rec {
+        packages.nonempty = # (ref:haskell-package-def)
+          haskellPackages.callCabal2nix "nonempty" ./nonempty rec {
             # Dependency overrides go here
           };
 
-        defaultPackage = self.packages.${system}.${packageName};
+        defaultPackage = pkgs.stdenv.mkDerivation {
+          name = "nonempty";
+          src = self;
+          phases = [ "installPhase" ];
+          installPhase = ''touch $out/done'';
+          buildInputs = [
+            self.packages.${system}.nonempty
+          ];
+        };
 
         devShell = pkgs.mkShell {
           buildInputs = with haskellPackages; [
