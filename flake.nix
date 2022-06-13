@@ -27,6 +27,11 @@
             # Dependency overrides go here
             nonempty = packages.nonempty;
           };
+        packages.nonempty-aeson = # (ref:haskell-package-def)
+          haskellPackages.callCabal2nix "nonempty-aeson" ./nonempty-aeson rec {
+            # Dependency overrides go here
+            nonempty = packages.nonempty;
+          };
 
         defaultPackage = pkgs.linkFarmFromDrvs "all-nonempty" (pkgs.lib.unique (builtins.attrValues packages));
 

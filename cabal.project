@@ -2,4 +2,6 @@ packages: */*.cabal
 
 package nonempty
 
+package nonempty-aeson
+
 package nonempty-quickcheck
