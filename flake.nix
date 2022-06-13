@@ -28,7 +28,8 @@
             nonempty = packages.nonempty;
           };
 
-        defaultPackage = self.packages.${system}.nonempty-quickcheck;
+        defaultPackage = pkgs.linkFarmFromDrvs "all-nonempty" (pkgs.lib.unique (builtins.attrValues packages));
+
 
         devShell = pkgs.mkShell {
           buildInputs = with haskellPackages; [
