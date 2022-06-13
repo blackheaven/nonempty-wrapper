@@ -19,6 +19,7 @@ where
 import Data.NonEmpty
 import Data.Proxy
 import Test.QuickCheck hiding (getNonEmpty)
+import Data.Maybe (maybeToList)
 
 instance
   ( Arbitrary a,
@@ -35,7 +36,7 @@ instance
       <*> arbitrary
 
   shrink xs =
-    [ trustedNonEmpty xs'
+    [ xs''
       | xs' <- shrink $ getNonEmpty xs,
-        isNonEmpty xs'
+        xs'' <- maybeToList $ nonEmpty xs'
     ]
