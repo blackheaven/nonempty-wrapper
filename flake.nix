@@ -32,6 +32,11 @@
             # Dependency overrides go here
             nonempty = packages.nonempty;
           };
+        packages.nonempty-text = # (ref:haskell-package-def)
+          haskellPackages.callCabal2nix "nonempty-text" ./nonempty-text rec {
+            # Dependency overrides go here
+            nonempty = packages.nonempty;
+          };
 
         defaultPackage = pkgs.linkFarmFromDrvs "all-nonempty" (pkgs.lib.unique (builtins.attrValues packages));
 

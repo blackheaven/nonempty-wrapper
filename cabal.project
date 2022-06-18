@@ -5,3 +5,5 @@ package nonempty
 package nonempty-aeson
 
 package nonempty-quickcheck
+
+package nonempty-text

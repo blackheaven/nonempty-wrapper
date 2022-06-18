@@ -29,9 +29,17 @@ module Data.NonEmpty
     -- * Operations
     (<|),
     (|>),
+    overNonEmpty,
+    overNonEmpty2,
+    overNonEmpty3,
+    overNonEmpty4,
+    overNonEmpty5,
+    fmapNonEmpty,
+    withNonEmpty,
   )
 where
 
+import Data.Maybe(fromJust)
 import Data.Kind
 import Data.Proxy
 
@@ -47,19 +55,59 @@ instance Semigroup a => Semigroup (NonEmpty a) where
 
 -- * Operations
 
+-- | Append empty container
 (<|) :: Semigroup a => NonEmpty a -> a -> NonEmpty a
 NonEmpty ne <| n = NonEmpty $ ne <> n
+{-# INLINE (<|) #-}
 
 infixr 6 <|
 
+-- | Prepend empty container
 (|>) :: Semigroup a => a -> NonEmpty a -> NonEmpty a
 n |> NonEmpty ne = NonEmpty $ n <> ne
+{-# INLINE (|>) #-}
 
 infixr 6 |>
+
+-- | Wrap and unwrap 'NonEmpty' (unsafe, be sure 'f' is size-conservative)
+overNonEmpty :: (a -> b) -> NonEmpty a -> NonEmpty b
+overNonEmpty f = trustedNonEmpty . f . getNonEmpty
+{-# INLINE overNonEmpty #-}
+
+-- | Wrap and unwrap 'NonEmpty' (unsafe, be sure 'f' is size-conservative)
+overNonEmpty2 :: (a -> b -> c) -> NonEmpty a -> NonEmpty b -> NonEmpty c
+overNonEmpty2 f a = trustedNonEmpty . f (getNonEmpty a) . getNonEmpty
+{-# INLINE overNonEmpty2 #-}
+
+-- | Wrap and unwrap 'NonEmpty' (unsafe, be sure 'f' is size-conservative)
+overNonEmpty3 :: (a -> b -> c -> d) -> NonEmpty a -> NonEmpty b -> NonEmpty c -> NonEmpty d
+overNonEmpty3 f a b = trustedNonEmpty . f (getNonEmpty a) (getNonEmpty b) . getNonEmpty
+{-# INLINE overNonEmpty3 #-}
+
+-- | Wrap and unwrap 'NonEmpty' (unsafe, be sure 'f' is size-conservative)
+overNonEmpty4 :: (a -> b -> c -> d -> e) -> NonEmpty a -> NonEmpty b -> NonEmpty c -> NonEmpty d -> NonEmpty e
+overNonEmpty4 f a b c = trustedNonEmpty . f (getNonEmpty a) (getNonEmpty b) (getNonEmpty c) . getNonEmpty
+{-# INLINE overNonEmpty4 #-}
+
+-- | Wrap and unwrap 'NonEmpty' (unsafe, be sure 'f' is size-conservative)
+overNonEmpty5 :: (a -> b -> c -> d -> e -> f) -> NonEmpty a -> NonEmpty b -> NonEmpty c -> NonEmpty d -> NonEmpty e -> NonEmpty f
+overNonEmpty5 f a b c d = trustedNonEmpty . f (getNonEmpty a) (getNonEmpty b) (getNonEmpty c) (getNonEmpty d) . getNonEmpty
+{-# INLINE overNonEmpty5 #-}
+
+-- | 'fmap' over a 'NonEmpty' container
+fmapNonEmpty :: Functor f => (a -> b) -> NonEmpty (f a) -> NonEmpty (f b)
+fmapNonEmpty f = overNonEmpty (fmap f)
+{-# INLINE fmapNonEmpty #-}
+
+-- | Apply an unsafe function over empty, which is safe over 'NonEmpty'
+withNonEmpty :: (a -> Maybe b) -> NonEmpty a -> b
+withNonEmpty f = fromJust . f . getNonEmpty
+{-# INLINE withNonEmpty #-}
 
 -- | Trusted value
 trustedNonEmpty :: a -> NonEmpty a
 trustedNonEmpty = NonEmpty
+{-# INLINE trustedNonEmpty #-}
 
 -- | Singleton constructible value
 class NonEmptySingleton a where
@@ -69,6 +117,7 @@ class NonEmptySingleton a where
 -- | Build a 'NonEmpty' value from a singleton value
 singleton :: NonEmptySingleton a => Proxy a -> NonEmptySingletonElement a -> NonEmpty a
 singleton p = trustedNonEmpty . nonEmptySingleton p
+{-# INLINE singleton #-}
 
 -- | Build 'NonEmptySingleton' for 'Applicative' defined types
 --   to be used with 'DerivingVia':
