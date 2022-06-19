@@ -46,6 +46,7 @@
             haskell-language-server
             ghcid
             cabal-install
+            haskell-ci
           ];
           inputsFrom = builtins.attrValues self.packages.${system};
         };
