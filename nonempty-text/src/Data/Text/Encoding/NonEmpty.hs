@@ -55,6 +55,7 @@ import qualified Data.Text.Encoding as E
 import Data.Text.Encoding.Error (OnDecodeError, UnicodeException)
 import Data.Text.NonEmpty
 import Data.Word (Word8)
+import GHC.Stack
 
 -- $strict
 --
