@@ -77,7 +77,6 @@ jobs:
           echo "HEADHACKAGE=false" >> "$GITHUB_ENV"
           echo "ARG_COMPILER=--$HCKIND --with-compiler=$HC" >> "$GITHUB_ENV"
           echo "GHCJSARITH=0" >> "$GITHUB_ENV"
-          echo "ARG_COMPILER=--$HCKIND --with-compiler=$HC"
         env:
           HCKIND: ${{ matrix.compilerKind }}
           HCNAME: ${{ matrix.compiler }}
@@ -190,7 +189,7 @@ jobs:
         run: |
           $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks --dependencies-only -j2 all
           $CABAL v2-build $ARG_COMPILER $ARG_TESTS $ARG_BENCH --dependencies-only -j2 all
-          $CABAL install hspec-discover
+          $CABAL install $ARG_COMPILER hspec-discover
       - name: build w/o tests
         run: |
           $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks all
