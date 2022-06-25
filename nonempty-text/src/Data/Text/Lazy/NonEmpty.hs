@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP #-}
 {-# OPTIONS_GHC -Wno-redundant-constraints #-}
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 
@@ -146,7 +147,9 @@ module Data.Text.Lazy.NonEmpty
     filter,
     breakOnAll,
     find,
+#if MIN_VERSION_text(1,2,5)
     elem,
+#endif
     partition,
 
     -- * Indexing
@@ -918,9 +921,11 @@ chunksOf p = T.chunksOf p . getNonEmpty
 -- | /O(n)/ The 'elem' function takes a character and a 'NonEmptyLazyText', and
 -- returns 'True' if the element is found in the given 'NonEmptyLazyText', or
 -- 'False' otherwise.
+#if MIN_VERSION_text(1,2,5)
 elem :: Char -> NonEmptyLazyText -> Bool
 elem p = T.elem p . getNonEmpty
 {-# INLINE elem #-}
+#endif
 
 -- | /O(n)/ The 'find' function takes a predicate and a 'NonEmptyLazyText', and
 -- returns the first element matching the predicate, or 'Nothing' if
