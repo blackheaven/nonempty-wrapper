@@ -7,8 +7,8 @@ category:            Data
 build-type:          Simple
 license:             ISC
 license-file:        LICENSE
-description:         aeson instances for 'NonEmpty'
 synopsis:            aeson instances for 'NonEmpty'
+description:         aeson instances for 'NonEmpty'.
 Homepage:            http://github.com/blackheaven/nonempty/nonempty-aeson
 tested-with:         GHC==9.2.2, GHC==9.0.2, GHC==8.10.7
 
@@ -22,6 +22,8 @@ library
   exposed-modules:
       Data.Aeson.Types.Instances.NonEmpty
   other-modules:
+      Paths_nonempty_aeson
+  autogen-modules:
       Paths_nonempty_aeson
   default-extensions:
       DataKinds
@@ -52,6 +54,8 @@ test-suite nonempty-aeson-test
   main-is: Spec.hs
   other-modules:
       Data.Aeson.Types.Instances.NonEmptySpec
+      Paths_nonempty_aeson
+  autogen-modules:
       Paths_nonempty_aeson
   default-extensions:
       DataKinds

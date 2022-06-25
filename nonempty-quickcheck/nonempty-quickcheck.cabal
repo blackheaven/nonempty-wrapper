@@ -7,8 +7,8 @@ category:            Data
 build-type:          Simple
 license:             ISC
 license-file:        LICENSE
-description:         QuickCheck instance for 'NonEmpty'
 synopsis:            QuickCheck instance for 'NonEmpty'
+description:         QuickCheck instance for 'NonEmpty'.
 Homepage:            http://github.com/blackheaven/nonempty/nonempty-quickcheck
 tested-with:         GHC==9.2.2, GHC==9.0.2, GHC==8.10.7
 
@@ -22,6 +22,8 @@ library
   exposed-modules:
       Test.QuickCheck.Instances.NonEmpty
   other-modules:
+      Paths_nonempty_quickcheck
+  autogen-modules:
       Paths_nonempty_quickcheck
   default-extensions:
       DataKinds
