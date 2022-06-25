@@ -1,5 +1,5 @@
 cabal-version:       3.0
-name:                nonempty
+name:                nonempty-wrapper
 version:             0.1.0.0
 author:              Gautier DI FOLCO
 maintainer:          gautier.difolco@gmail.com
@@ -9,7 +9,7 @@ license:             ISC
 license-file:        LICENSE
 synopsis:            Create NonEmpty version of any container
 description:         Create NonEmpty version of any container.
-Homepage:            http://github.com/blackheaven/nonempty/nonempty
+Homepage:            http://github.com/blackheaven/nonempty-wrapper/nonempty-wrapper
 tested-with:         GHC==9.2.2, GHC==9.0.2, GHC==8.10.7
 
 library
@@ -20,9 +20,9 @@ library
   exposed-modules:
       Data.NonEmpty
   other-modules:
-      Paths_nonempty
+      Paths_nonempty_wrapper
   autogen-modules:
-      Paths_nonempty
+      Paths_nonempty_wrapper
   default-extensions:
       DataKinds
       DefaultSignatures
@@ -46,15 +46,15 @@ library
       TypeOperators
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wpartial-fields -Wredundant-constraints
 
-test-suite nonempty-test
+test-suite nonempty-wrapper-test
   type: exitcode-stdio-1.0
   hs-source-dirs: test
   main-is: Spec.hs
   other-modules:
       Data.NonEmptySpec
-      Paths_nonempty
+      Paths_nonempty_wrapper
   autogen-modules:
-      Paths_nonempty
+      Paths_nonempty_wrapper
   default-extensions:
       DataKinds
       DefaultSignatures
@@ -79,7 +79,7 @@ test-suite nonempty-test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wpartial-fields -Wredundant-constraints
   build-depends:
       base
-    , nonempty
+    , nonempty-wrapper
     , hspec
     , hspec-core
     , hspec-discover

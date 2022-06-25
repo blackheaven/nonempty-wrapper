@@ -1,5 +1,5 @@
 {
-  description = "nonempty";
+  description = "nonempty-wrapper";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs";
@@ -18,27 +18,27 @@
       in
       rec
       {
-        packages.nonempty = # (ref:haskell-package-def)
-          haskellPackages.callCabal2nix "nonempty" ./nonempty rec {
+        packages.nonempty-wrapper = # (ref:haskell-package-def)
+          haskellPackages.callCabal2nix "nonempty-wrapper" ./nonempty-wrapper rec {
             # Dependency overrides go here
           };
-        packages.nonempty-quickcheck = # (ref:haskell-package-def)
-          haskellPackages.callCabal2nix "nonempty-quickcheck" ./nonempty-quickcheck rec {
+        packages.nonempty-wrapper-quickcheck = # (ref:haskell-package-def)
+          haskellPackages.callCabal2nix "nonempty-wrapper-quickcheck" ./nonempty-wrapper-quickcheck rec {
             # Dependency overrides go here
-            nonempty = packages.nonempty;
+            nonempty-wrapper = packages.nonempty-wrapper;
           };
-        packages.nonempty-aeson = # (ref:haskell-package-def)
-          haskellPackages.callCabal2nix "nonempty-aeson" ./nonempty-aeson rec {
+        packages.nonempty-wrapper-aeson = # (ref:haskell-package-def)
+          haskellPackages.callCabal2nix "nonempty-wrapper-aeson" ./nonempty-wrapper-aeson rec {
             # Dependency overrides go here
-            nonempty = packages.nonempty;
+            nonempty-wrapper = packages.nonempty-wrapper;
           };
-        packages.nonempty-text = # (ref:haskell-package-def)
-          haskellPackages.callCabal2nix "nonempty-text" ./nonempty-text rec {
+        packages.nonempty-wrapper-text = # (ref:haskell-package-def)
+          haskellPackages.callCabal2nix "nonempty-wrapper-text" ./nonempty-wrapper-text rec {
             # Dependency overrides go here
-            nonempty = packages.nonempty;
+            nonempty-wrapper = packages.nonempty-wrapper;
           };
 
-        defaultPackage = pkgs.linkFarmFromDrvs "all-nonempty" (pkgs.lib.unique (builtins.attrValues packages));
+        defaultPackage = pkgs.linkFarmFromDrvs "all-nonempty-wrapper" (pkgs.lib.unique (builtins.attrValues packages));
 
 
         devShell = pkgs.mkShell {

@@ -2,10 +2,10 @@ tested-with: GHC==9.2.2, GHC==9.0.2, GHC==8.10.7
 
 packages: */*.cabal
 
-package nonempty
+package nonempty-wrapper
 
-package nonempty-aeson
+package nonempty-wrapper-aeson
 
-package nonempty-quickcheck
+package nonempty-wrapper-quickcheck
 
-package nonempty-text
+package nonempty-wrapper-text
