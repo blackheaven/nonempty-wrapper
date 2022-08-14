@@ -2,7 +2,7 @@
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 
 -- |
--- Module        : Test.QuickCheck.Instances.NonEmpty
+-- Module        : Data.Aeson.Types.Instances.NonEmpty
 -- Copyright     : Gautier DI FOLCO
 -- License       : BSD2
 --
