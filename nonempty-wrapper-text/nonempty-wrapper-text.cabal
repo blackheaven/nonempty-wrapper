@@ -16,7 +16,7 @@ library
   default-language:   Haskell2010
   build-depends:
         base == 4.*
-      , text >=1 && < 3
+      , text == 2.*
       , bytestring >= 0.10 && < 0.13
       , nonempty-wrapper >= 0.1.0.0 && < 1
   hs-source-dirs: src
