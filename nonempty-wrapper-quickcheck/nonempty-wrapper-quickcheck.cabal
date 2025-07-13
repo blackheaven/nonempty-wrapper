@@ -1,6 +1,9 @@
 cabal-version:       3.0
 name:                nonempty-wrapper-quickcheck
-version:             0.1.0.0
+version:             0.1.0.1
+extra-doc-files:
+    README.md
+    changelog.md
 author:              Gautier DI FOLCO
 maintainer:          foss@difolco.dev
 category:            Data
