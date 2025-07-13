@@ -73,11 +73,11 @@ import GHC.Stack
 -- | Decode a 'ByteString' containing Latin-1 (aka ISO-8859-1) encoded text.
 --
 -- 'decodeLatin1' is semantically equivalent to
---  @Data.Text.pack . Data.ByteString.Char8.unpack@
+-- @Data.Text.pack . Data.ByteString.Char8.unpack@
 --
 -- This is a total function. However, bear in mind that decoding Latin-1 (non-ASCII)
 -- characters to UTf-8 requires actual work and is not just buffer copying.
-decodeLatin1 :: HasCallStack => NonEmpty ByteString -> NonEmptyStrictText
+decodeLatin1 :: (HasCallStack) => NonEmpty ByteString -> NonEmptyStrictText
 decodeLatin1 = overNonEmpty E.decodeLatin1
 {-# INLINE decodeLatin1 #-}
 
@@ -85,7 +85,7 @@ decodeLatin1 = overNonEmpty E.decodeLatin1
 --
 -- Surrogate code points in replacement character returned by 'OnDecodeError'
 -- will be automatically remapped to the replacement char @U+FFFD@.
-decodeUtf8With :: HasCallStack => OnDecodeError -> NonEmpty ByteString -> NonEmptyStrictText
+decodeUtf8With :: (HasCallStack) => OnDecodeError -> NonEmpty ByteString -> NonEmptyStrictText
 decodeUtf8With onError = overNonEmpty $ E.decodeUtf8With onError
 {-# INLINE decodeUtf8With #-}
 
@@ -96,13 +96,13 @@ decodeUtf8With onError = overNonEmpty $ E.decodeUtf8With onError
 -- thrown (either by this function or a continuation) that cannot be
 -- caught in pure code.  For more control over the handling of invalid
 -- data, use 'streamDecodeUtf8With'.
-streamDecodeUtf8 :: HasCallStack => NonEmpty ByteString -> NonEmpty E.Decoding
+streamDecodeUtf8 :: (HasCallStack) => NonEmpty ByteString -> NonEmpty E.Decoding
 streamDecodeUtf8 = overNonEmpty E.streamDecodeUtf8
 {-# INLINE streamDecodeUtf8 #-}
 
 -- | Decode, in a stream oriented way, a lazy 'ByteString' containing UTF-8
 -- encoded text.
-streamDecodeUtf8With :: HasCallStack => OnDecodeError -> NonEmpty ByteString -> NonEmpty E.Decoding
+streamDecodeUtf8With :: (HasCallStack) => OnDecodeError -> NonEmpty ByteString -> NonEmpty E.Decoding
 streamDecodeUtf8With onError = overNonEmpty $ E.streamDecodeUtf8With onError
 {-# INLINE streamDecodeUtf8With #-}
 
@@ -124,7 +124,7 @@ decodeUtf8 = overNonEmpty E.decodeUtf8
 --
 -- If the input contains any invalid UTF-8 data, the relevant
 -- exception will be returned, otherwise the decoded text.
-decodeUtf8' :: HasCallStack => NonEmpty ByteString -> Either UnicodeException NonEmptyStrictText
+decodeUtf8' :: (HasCallStack) => NonEmpty ByteString -> Either UnicodeException NonEmptyStrictText
 decodeUtf8' = fmap trustedNonEmpty . E.decodeUtf8' . getNonEmpty
 {-# INLINE decodeUtf8' #-}
 

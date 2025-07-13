@@ -189,7 +189,7 @@ pack = overNonEmpty T.pack
 {-# INLINE pack #-}
 
 -- | /O(n)/ Convert a 'NonEmptyStrictText' into a 'NonEmpty String'.
-unpack :: HasCallStack => NonEmptyLazyText -> NonEmpty String
+unpack :: (HasCallStack) => NonEmptyLazyText -> NonEmpty String
 unpack = overNonEmpty T.unpack
 {-# INLINE unpack #-}
 
@@ -335,7 +335,7 @@ intersperse c = overNonEmpty $ T.intersperse c
 --
 -- >>> T.reverse "desrever"
 -- "reversed"
-reverse :: HasCallStack => NonEmptyLazyText -> NonEmptyLazyText
+reverse :: (HasCallStack) => NonEmptyLazyText -> NonEmptyLazyText
 reverse = overNonEmpty T.reverse
 {-# INLINE reverse #-}
 
@@ -346,7 +346,7 @@ reverse = overNonEmpty T.reverse
 --
 -- @
 -- replace needle replacement haystack =
---   'intercalate' replacement ('splitOn' needle haystack)
+--  'intercalate' replacement ('splitOn' needle haystack)
 -- @
 --
 -- As this suggests, each occurrence is replaced exactly once.  So if
@@ -1035,7 +1035,7 @@ breakOnAll = T.breakOnAll `on` getNonEmpty
 -- before and after that index, you would instead use @breakOnAll \"::\"@.
 
 -- | /O(n)/ 'NonEmptyLazyText' index (subscript) operator, starting from 0.
-index :: HasCallStack => NonEmptyLazyText -> Int64 -> Char
+index :: (HasCallStack) => NonEmptyLazyText -> Int64 -> Char
 index x = T.index (getNonEmpty x)
 {-# INLINE index #-}
 
@@ -1111,7 +1111,7 @@ isSuffixOf = T.isSuffixOf `on` getNonEmpty
 --
 -- In (unlikely) bad cases, this function's time complexity degrades
 -- towards /O(n*m)/.
-isInfixOf :: HasCallStack => NonEmptyLazyText -> NonEmptyLazyText -> Bool
+isInfixOf :: (HasCallStack) => NonEmptyLazyText -> NonEmptyLazyText -> Bool
 isInfixOf = T.isInfixOf `on` getNonEmpty
 {-# INLINE isInfixOf #-}
 
@@ -1136,7 +1136,7 @@ isInfixOf = T.isInfixOf `on` getNonEmpty
 -- This is particularly useful with the @ViewPatterns@ extension to
 -- GHC, as follows:
 --
--- > {-# LANGUAGE ViewPatterns #-}
+-- > {\-# LANGUAGE ViewPatterns #-\}
 -- > import Data.Text.NonEmpty as T
 -- >
 -- > fnordLength :: NonEmptyLazyText -> Int
@@ -1184,7 +1184,7 @@ commonPrefixes = T.commonPrefixes `on` getNonEmpty
 -- This is particularly useful with the @ViewPatterns@ extension to
 -- GHC, as follows:
 --
--- > {-# LANGUAGE ViewPatterns #-}
+-- > {\-# LANGUAGE ViewPatterns #-\}
 -- > import Data.Text.NonEmpty as T
 -- >
 -- > quuxLength :: NonEmptyLazyText -> Int
