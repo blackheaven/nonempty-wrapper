@@ -19,7 +19,7 @@ on:
 jobs:
   linux:
     name: Haskell-CI - Linux - ${{ matrix.compiler }}
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     timeout-minutes:
       60
     container:
@@ -134,7 +134,7 @@ jobs:
         run: |
           $CABAL v2-update -v
       - name: cache (tools)
-        uses: actions/cache/restore@v3
+        uses: actions/cache/restore@v4
         with:
           key: ${{ runner.os }}-${{ matrix.compiler }}-tools-c81e5f3f
           path: ~/.haskell-ci-tools
@@ -154,13 +154,13 @@ jobs:
           if [ $((HCNUMVER >= 90800)) -ne 0 ] ; then mkdir -p $CABAL_DIR/bin && ln -sf "$HOME/.haskell-ci-tools/hlint-$HLINTVER/hlint" $CABAL_DIR/bin/hlint ; fi
           if [ $((HCNUMVER >= 90800)) -ne 0 ] ; then hlint --version ; fi
       - name: save cache (tools)
-        uses: actions/cache/save@v3
+        uses: actions/cache/save@v4
         if: always()
         with:
           key: ${{ runner.os }}-${{ matrix.compiler }}-tools-c81e5f3f
           path: ~/.haskell-ci-tools
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: source
       - name: initial cabal.project for sdist
@@ -214,7 +214,7 @@ jobs:
           $CABAL v2-build $ARG_COMPILER $ARG_TESTS $ARG_BENCH --dry-run all
           cabal-plan
       - name: restore cache
-        uses: actions/cache/restore@v3
+        uses: actions/cache/restore@v4
         with:
           key: ${{ runner.os }}-${{ matrix.compiler }}-${{ github.sha }}
           path: ~/.cabal/store
@@ -256,7 +256,7 @@ jobs:
           rm -f cabal.project.local
           $CABAL v2-build $ARG_COMPILER --disable-tests --disable-benchmarks all
       - name: save cache
-        uses: actions/cache/save@v3
+        uses: actions/cache/save@v4
         if: always()
         with:
           key: ${{ runner.os }}-${{ matrix.compiler }}-${{ github.sha }}
