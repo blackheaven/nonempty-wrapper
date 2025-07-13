@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP #-}
 -- |
 -- Module        : Data.NonEmpty.TH
 -- Copyright     : Gautier DI FOLCO
@@ -40,8 +41,10 @@ makeNonEmpty eExp = do
             when (null es) $
               fail "Cannot build a non-enpty value from an empty list"
           SigE e' _ -> ensureNonEmpty e'
+#if MIN_VERSION_base(4,19,0)
           TypedBracketE e' -> ensureNonEmpty e'
           TypedSpliceE e' -> ensureNonEmpty e'
+#endif
           e' -> fail $ "Unsupported expression type: " <> show e'
 
   ensureNonEmpty e
