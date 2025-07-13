@@ -5,7 +5,7 @@
 -- Copyright     : Gautier DI FOLCO
 -- License       : ISC
 --
--- Maintainer    : Gautier DI FOLCO <gautier.difolco@gmail.com>
+-- Maintainer    : Gautier DI FOLCO <foss@difolco.dev>
 -- Stability     : Unstable
 -- Portability   : GHC
 --

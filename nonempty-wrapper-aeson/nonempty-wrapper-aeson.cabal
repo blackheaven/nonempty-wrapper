@@ -2,7 +2,7 @@ cabal-version:       3.0
 name:                nonempty-wrapper-aeson
 version:             0.1.0.0
 author:              Gautier DI FOLCO
-maintainer:          gautier.difolco@gmail.com
+maintainer:          foss@difolco.dev
 category:            Data
 build-type:          Simple
 license:             ISC
