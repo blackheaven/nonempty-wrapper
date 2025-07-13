@@ -16,9 +16,12 @@ library
   default-language:   Haskell2010
   build-depends:
         base == 4.*
+      , template-haskell == 2.*
   hs-source-dirs: src
   exposed-modules:
       Data.NonEmpty
+      Data.NonEmpty.QQ
+      Data.NonEmpty.TH
   other-modules:
       Paths_nonempty_wrapper
   autogen-modules:
