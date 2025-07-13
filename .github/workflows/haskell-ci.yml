@@ -41,9 +41,13 @@ jobs:
             - GHCupURL
             - prereleases
 
-    - name: update
+    - name: run cabal update
       run: |
         cabal update
+
+    - name: install hspec-discover
+      run: |
+        cabal install hspec-discover
 
     - name: Freeze
       run: |
@@ -64,7 +68,6 @@ jobs:
 
     - name: Test
       run: |
-        cabal install hspec-discover
         cabal test all
 
     - name: Save cache
