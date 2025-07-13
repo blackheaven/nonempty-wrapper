@@ -64,6 +64,7 @@ jobs:
 
     - name: Test
       run: |
+        cabal install hspec-discover
         cabal test all
 
     - name: Save cache
