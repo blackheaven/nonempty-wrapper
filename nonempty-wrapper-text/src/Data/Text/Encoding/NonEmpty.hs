@@ -1,3 +1,5 @@
+{-# OPTIONS_GHC -Wno-redundant-constraints #-}
+
 -- |
 -- Module        : Data.Text.Encoding.NonEmpty
 -- Copyright     : Gautier DI FOLCO
