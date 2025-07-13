@@ -1,7 +1,7 @@
 -- |
 -- Module        : Data.NonEmpty.TH
 -- Copyright     : Gautier DI FOLCO
--- License       : BSD2
+-- License       : ISC
 --
 -- Maintainer    : Gautier DI FOLCO <gautier.difolco@gmail.com>
 -- Stability     : Unstable

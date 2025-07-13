@@ -4,7 +4,7 @@
 -- |
 -- Module        : Data.Aeson.Types.Instances.NonEmpty
 -- Copyright     : Gautier DI FOLCO
--- License       : BSD2
+-- License       : ISC
 --
 -- Maintainer    : Gautier DI FOLCO <gautier.difolco@gmail.com>
 -- Stability     : Unstable
