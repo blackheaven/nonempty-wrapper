@@ -28,12 +28,17 @@ jobs:
       matrix: ${{ fromJSON(needs.generate-matrix.outputs.matrix) }}
     steps:
     - uses: actions/checkout@v4
-    - uses: haskell-actions/setup@v2
-      id: setup-haskell-cabal
-      name: Setup Haskell
+    - uses: haskell/ghcup-setup@v1
       with:
-        ghc-version: ${{ matrix.ghc }}
-        cabal-version: 'latest'
+        ghc: ${{ matrix.ghc }}
+        config: |
+          # don't cache metadata files based on last access time
+          meta-cache: 0
+          # see https://github.com/haskell/ghcup-hs/blob/master/data/config.yaml
+          # for full documentation
+          url-source:
+            - GHCupURL
+            - prereleases
 
     - name: Freeze
       run: |
