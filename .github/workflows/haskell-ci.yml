@@ -40,6 +40,10 @@ jobs:
             - GHCupURL
             - prereleases
 
+    - name: update
+      run: |
+        cabal update
+
     - name: Freeze
       run: |
         cabal configure --enable-tests --enable-benchmarks --test-show-details=direct
@@ -51,11 +55,7 @@ jobs:
         path: |
           ${{ steps.setup-haskell.outputs.cabal-store }}
           dist-newstyle
-        key: ${{ runner.os }}-ghc-${{ matrix.ghc }}-cabal
-
-    - name: update
-      run: |
-        cabal update
+        key: ${{ runner.os }}-ghc-${{ matrix.ghc }}-cabal-${{ hashFiles('./.plan.json') }}
 
     - name: Build
       run: |
@@ -72,4 +72,4 @@ jobs:
         path: |
           ${{ steps.setup-haskell-cabal.outputs.cabal-store }}
           dist-newstyle
-        key: ${{ runner.os }}-ghc-${{ matrix.ghc }}-cabal
+        key: ${{ runner.os }}-ghc-${{ matrix.ghc }}-cabal-${{ hashFiles('./.plan.json') }}
