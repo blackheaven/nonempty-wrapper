@@ -39,8 +39,8 @@ module Data.NonEmpty
   )
 where
 
-import Data.Maybe(fromJust)
 import Data.Kind
+import Data.Maybe (fromJust)
 import Data.Proxy
 
 -- | NonEmpty proofed value.
@@ -50,20 +50,20 @@ newtype NonEmpty a = NonEmpty
   }
   deriving stock (Eq, Ord, Show)
 
-instance Semigroup a => Semigroup (NonEmpty a) where
+instance (Semigroup a) => Semigroup (NonEmpty a) where
   NonEmpty x <> NonEmpty y = NonEmpty $ x <> y
 
 -- * Operations
 
 -- | Append empty container
-(<|) :: Semigroup a => NonEmpty a -> a -> NonEmpty a
+(<|) :: (Semigroup a) => NonEmpty a -> a -> NonEmpty a
 NonEmpty ne <| n = NonEmpty $ ne <> n
 {-# INLINE (<|) #-}
 
 infixr 6 <|
 
 -- | Prepend empty container
-(|>) :: Semigroup a => a -> NonEmpty a -> NonEmpty a
+(|>) :: (Semigroup a) => a -> NonEmpty a -> NonEmpty a
 n |> NonEmpty ne = NonEmpty $ n <> ne
 {-# INLINE (|>) #-}
 
@@ -95,7 +95,7 @@ overNonEmpty5 f a b c d = trustedNonEmpty . f (getNonEmpty a) (getNonEmpty b) (g
 {-# INLINE overNonEmpty5 #-}
 
 -- | 'fmap' over a 'NonEmpty' container
-fmapNonEmpty :: Functor f => (a -> b) -> NonEmpty (f a) -> NonEmpty (f b)
+fmapNonEmpty :: (Functor f) => (a -> b) -> NonEmpty (f a) -> NonEmpty (f b)
 fmapNonEmpty f = overNonEmpty (fmap f)
 {-# INLINE fmapNonEmpty #-}
 
@@ -115,7 +115,7 @@ class NonEmptySingleton a where
   nonEmptySingleton :: Proxy a -> NonEmptySingletonElement a -> a
 
 -- | Build a 'NonEmpty' value from a singleton value
-singleton :: NonEmptySingleton a => Proxy a -> NonEmptySingletonElement a -> NonEmpty a
+singleton :: (NonEmptySingleton a) => Proxy a -> NonEmptySingletonElement a -> NonEmpty a
 singleton p = trustedNonEmpty . nonEmptySingleton p
 {-# INLINE singleton #-}
 
@@ -126,7 +126,7 @@ singleton p = trustedNonEmpty . nonEmptySingleton p
 newtype MkNonEmptySingletonApplicative a
   = MkNonEmptySingletonApplicative a
 
-instance Applicative f => NonEmptySingleton (f a) where
+instance (Applicative f) => NonEmptySingleton (f a) where
   type NonEmptySingletonElement (f a) = a
   nonEmptySingleton _ = pure
 
@@ -137,7 +137,7 @@ class NonEmptyFromContainer a where
   isNonEmpty :: a -> Bool
 
 -- | Attempt 'NonEmpty' proof
-nonEmpty :: NonEmptyFromContainer a => a -> Maybe (NonEmpty a)
+nonEmpty :: (NonEmptyFromContainer a) => a -> Maybe (NonEmpty a)
 nonEmpty x =
   if isNonEmpty x
     then Just $ trustedNonEmpty x
@@ -150,5 +150,5 @@ nonEmpty x =
 newtype MkNonEmptyFromContainerFoldable a
   = MkNonEmptyFromContainerFoldable a
 
-instance Foldable f => NonEmptyFromContainer (f a) where
+instance (Foldable f) => NonEmptyFromContainer (f a) where
   isNonEmpty = not . null
