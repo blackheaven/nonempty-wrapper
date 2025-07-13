@@ -16,10 +16,10 @@ module Test.QuickCheck.Instances.NonEmpty
   )
 where
 
+import Data.Maybe (maybeToList)
 import Data.NonEmpty
 import Data.Proxy
 import Test.QuickCheck hiding (getNonEmpty)
-import Data.Maybe (maybeToList)
 
 instance
   ( Arbitrary a,
